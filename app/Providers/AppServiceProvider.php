@@ -30,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo \\Carbon\\Carbon::parse($expression)->locale('id')->format('d/m/Y'); ?>";
 
         });
+        Blade::directive('carbon_date', function ($expression) {
+            return "<?php echo \\Carbon\\Carbon::parse($expression)->locale('id')->format('d F Y'); ?>";
+
+        });
     }
 
     /**

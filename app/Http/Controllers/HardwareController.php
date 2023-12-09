@@ -53,9 +53,11 @@ class HardwareController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Hardware $hardware)
+    public function show($id)
     {
-        //
+        $hardware = Hardware::where('lab_id', $id)->pluck('id','hardware');
+
+        return response()->json($hardware);
     }
 
     /**

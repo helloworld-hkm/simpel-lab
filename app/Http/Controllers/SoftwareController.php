@@ -53,9 +53,11 @@ class SoftwareController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Software $software)
+    public function show($id)
     {
-        //
+        $software = Software::where('lab_id', $id)->pluck('id','software');
+
+        return response()->json($software);
     }
 
     /**

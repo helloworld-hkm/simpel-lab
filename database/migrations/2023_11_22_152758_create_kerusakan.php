@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('perbaikan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('pemeliharaan_id')
+            $table->foreignId('pemeliharaan_id')->nullable()
             ->constrained(
                 table: 'pemeliharaan_komputer', indexName: 'perbaikan_pemeliharaan_id'
             )
@@ -32,6 +32,7 @@ return new class extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->string('kerusakan');
+            $table->string('keterangan')->nullable()->default('-');
             $table->date('tgl_kerusakan');
             $table->date('tgl_selesai')->nullable()->default(null);
             $table->enum('status', ['selesai', 'Dalam Perbaikan','menunggu perbaikan'])->default('menunggu perbaikan');

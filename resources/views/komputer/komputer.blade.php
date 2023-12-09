@@ -204,7 +204,7 @@
                 $.ajax({
                     url: '/komputer/getData/' + id + '/' + lab_id,
                     method: 'GET',
-                    async: false, // Tunggu hingga permintaan selesai
+                    async: false,
                     success: function(data) {
                         console.log("cek data :", data.data.length);
                         if (!data.data.length == 0) {
@@ -227,11 +227,8 @@
                     return false;
                 } else {
                     console.log("valid true");
-                    // Jika formulir valid, set action dan formulir akan dikirim
                     $('#formTambah').attr('action', '/komputer/simpan');
-                    // Anda juga bisa langsung melakukan submit formulir di sini jika Anda ingin menggunakan
-                    // aksi yang sudah diatur di form, dengan cara seperti:
-                    // $('#formTambah').submit();
+
                 }
             });
 

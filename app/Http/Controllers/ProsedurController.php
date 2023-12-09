@@ -78,8 +78,11 @@ class ProsedurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Prosedur $prosedur)
+    public function destroy($id)
     {
-        //
+        $prosedur = Prosedur::find($id);
+        $keterangan= $prosedur->keterangan;
+        $prosedur->delete();
+        return redirect()->route('prosedur.index')->with('delete',  $keterangan);
     }
 }

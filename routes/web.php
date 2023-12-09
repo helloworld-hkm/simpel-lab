@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
 
         // perbaikan
         Route::resource('perbaikan',PerbaikanController::class);
+        Route::get('/perbaikan/detail/{id}', [PerbaikanController::class, 'detail']);
 
         // master data
         Route::resource('hardware', HardwareController::class);
