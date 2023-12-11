@@ -33,7 +33,7 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->string('software_lama');
             $table->string('software_baru');
-            $table->date('tanggal_penggantian');
+            $table->dateTime('tanggal_penggantian');
         });
     }
 

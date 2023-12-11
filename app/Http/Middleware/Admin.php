@@ -15,10 +15,11 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check()||auth()->user()->role->id!=1){
-            abort('403');
+        if(auth()->user()->role->id ==1){
+
+            return $next($request);
             // return view('cek');
         }
-        return $next($request);
+        abort('403','Akses Ditolak');
     }
 }

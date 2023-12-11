@@ -6,7 +6,10 @@ use App\Http\Controllers\HardwareController;
 use App\Http\Controllers\KomputerController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PemeliharaanKomputerController;
+use App\Http\Controllers\PenggantianHardwareController;
+use App\Http\Controllers\PenggantianSoftwareController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\ProfileController;
@@ -27,18 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/monitoring', function () {
-        return view('monitoring.laboratorium',[
-            'title'=>'monitoring',
-            'active'=>'monitoring',
-        ]);
-    });
-    Route::get('/monitoring/lab', function () {
-        return view('monitoring.komputer',[
-            'title'=>'monitoring',
-            'active'=>'monitoring',
-        ]);
-    });
+
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware(['admin'])->group(function () {
@@ -65,12 +57,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pemeliharaan', [PemeliharaanKomputerController::class, 'index']);
         Route::get('/pemeliharaan/sesi/{id}/{lab_id}', [PemeliharaanKomputerController::class, 'komputer']);
         Route::post('/pemeliharaan', [PemeliharaanKomputerController::class, 'store']);
-        Route::get('/pemeliharaan/detail/{id}', [PemeliharaanKomputerController::class, 'getData']);
+
         Route::post('/pemeliharaan/tambah', [PemeliharaanKomputerController::class, 'simpanPemeliharaan']);
 
         // perbaikan
-        Route::resource('perbaikan',PerbaikanController::class);
+        Route::resource('perbaikan', PerbaikanController::class);
         Route::get('/perbaikan/detail/{id}', [PerbaikanController::class, 'detail']);
+
+
 
         // master data
         Route::resource('hardware', HardwareController::class);
@@ -78,8 +72,19 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('aset', AsetController::class);
         Route::resource('prosedur', ProsedurController::class);
     });
+    // url untuk jquery (return data json)
+    Route::get('/pemeliharaan/detail/{id}', [PemeliharaanKomputerController::class, 'getData']);
+    Route::get('/perbaikan/detailPerbaikan/{id}', [PerbaikanController::class, 'getData']);
+    // penggantian hardware
+    Route::resource('penggantian_hardware', PenggantianHardwareController::class);
+    // penggantaian software
+    Route::resource('penggantian_software', PenggantianSoftwareController::class);
     Route::middleware(['kepala'])->group(function () {
         // route group untuk role kepala : monitoring keadaan lab dan laporan
+        Route::resource('monitoring', MonitoringController::class);
+        Route::get('/monitoring/komputer/{id}', [MonitoringController::class, 'shortByLab']);
+        Route::get('/monitoring/komputer/detail/{id}/{lab}', [MonitoringController::class, 'detail']);
+        Route::get('/monitoring/komputer/getData/{no_pc}/{lab_id}', [KomputerController::class, 'getData']);
     });
 });
 // otentikasi

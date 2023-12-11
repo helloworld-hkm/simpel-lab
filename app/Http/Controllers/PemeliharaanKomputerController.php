@@ -60,7 +60,7 @@ class PemeliharaanKomputerController extends Controller
             ]);
         }
         if($request->input('status')=='Butuh Perbaikan'){
-            $tanggalKerusakan = Carbon::now();
+            $tanggalKerusakan = $request->input('tanggal');
             $data=[
                 'pemeliharaan_id'=>$pemeliharaanId,
                 'pc_id'=>$request->input('pc_id'),

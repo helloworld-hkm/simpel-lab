@@ -42,7 +42,7 @@
         <div class="row">
 
             <!-- Left side columns -->
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <div class="row">
 
                     <!-- Recent Sales -->
@@ -78,7 +78,7 @@
                     </div><!-- End Recent Sales -->
 
                 </div>
-            </div><!-- End Left side columns -->
+            </div><!-- End Left side columns --> --}}
         </div>
     </section>
 @endsection

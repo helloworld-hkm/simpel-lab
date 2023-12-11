@@ -10,4 +10,7 @@ class Penggantian_Hardware extends Model
     protected $table='penggantian_hardware';
     protected $guarded=['id'];
     public $timestamps = false;
+    public function hardware(){
+        return $this->belongsTo(Hardware::class,'hardware_id');
+    }
 }

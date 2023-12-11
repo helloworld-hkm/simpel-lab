@@ -15,11 +15,11 @@ class maintenanceRepair
      */
     public function handle(Request $request, Closure $next ): Response
     {
-        if(auth()->check()||auth()->user()->role->id==4 || auth()->user()->role->id==5){
+        if(auth()->user()->role->id==4 || auth()->user()->role->id==5){
             return $next($request);
         }
 
-        abort('403');
+        abort(403, 'Akses ditolak');
         // return view('cek');
     }
 }

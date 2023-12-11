@@ -327,11 +327,13 @@
             @endif
             @foreach ($data as $komputer)
                 <div class="col-xxl-3 col-md-5">
-                    <div class="card info-card revenue-card">
+
+                    <div class="card info-card {{ $komputer->status == 'Rusak' ? 'customers-card' : 'revenue-card' }}">
+
                         <a href="/komputer/detail/{{ $komputer->id }}/{{ $lab->id }}">
                             <div class="card-body">
                                 <h5 class="card-title d-flex justify-content-between align-items-center"> <span
-                                        class="{{ $komputer->status == 'Normal' ? 'text-primary' : 'text-danger' }} small  fw-bold">{{ $komputer->status }}</span>
+                                        class="{{ $komputer->status == 'Normal' ? 'text-primary' : 'text-danger' }} small  fw-bold">{{ $komputer->status == 'Rusak' ? 'Butuh Perbaikan' : $komputer->status }}</span>
                                     @if ($komputer->pemeliharaan->isEmpty())
                                         <span class="text-muted small ">Belum Pernah Dicek</span>
                                 </h5>

@@ -44,8 +44,8 @@
                         </div>
 
                         <div class="form-floating mb-3 has-validation">
-                            <input type="date" class="form-control" name="tanggal" value="2023-11-23" id="tanggal" maxlength="255"
-                                id="floatingName" placeholder="Your Name" required>
+                            <input type="datetime-local" class="form-control" name="tanggal" value="{{ now() }}"
+                                id="tanggal" maxlength="255" id="floatingName" placeholder="Your Name" required>
 
                             <label for="floatingName">Tanggal </label>
                             <div class="invalid-feedback">
@@ -183,9 +183,10 @@
                     console.log('pemeliharaan:', data);
                     console.log('detail:', data.pemeliharaan.detail);
                     console.log('pc:', data.pemeliharaan.pc);
+                    console.log(formatTanggal(data.pemeliharaan.tanggal))
                     $("#detail_noPc").html("Pc." + data.pemeliharaan.pc.no_pc);
                     $("#detail_lab").html("Lab " + data.lab.lab.nama_lab);
-                    $("#detail_tanggal").html(data.pemeliharaan.tanggal);
+                    $("#detail_tanggal").html(formatTanggal(data.pemeliharaan.tanggal));
                     $("#detail_kondisi").html(data.pemeliharaan.perbaikan);
                     $("#detail_pelaksana").html(data.pemeliharaan.user.fullname);
                     var myArray = data.pemeliharaan.detail;
@@ -220,7 +221,7 @@
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="bi bi-check-circle me-1"></i>
-                <span class="fw-bold">Tambah data berhasil: </span>Hasil Pemeliharaan  <span
+                <span class="fw-bold">Tambah data berhasil: </span>Hasil Pemeliharaan <span
                     class="text-danger">Pc.{{ session('success') }}</span> berhasil ditambahkan ke Sistem
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -304,11 +305,13 @@
                                     </span>
                                     <div class="d-flex flex-sm-column flex-md-row justify-content-end gap-2">
                                         <button data-bs-toggle="modal" data-bs-target="#tambahModal" type="button"
-                                            class="btn btn-success btn-sm my-1"><i class="bi bi-printer"></i> Cetak </button>
+                                            class="btn btn-success btn-sm my-1"><i class="bi bi-printer"></i> Cetak
+                                        </button>
 
                                         <button data-bs-toggle="modal" data-bs-target="#detailModal"
                                             data-id="{{ $pemeliharaan->id }}" type="button"
-                                            class="btn btn-primary btn-sm my-1 btn-detail"><i class="bi bi-info-circle"></i>
+                                            class="btn btn-primary btn-sm my-1 btn-detail"><i
+                                                class="bi bi-info-circle"></i>
                                             Detail</button>
                                     </div>
                                 </li>

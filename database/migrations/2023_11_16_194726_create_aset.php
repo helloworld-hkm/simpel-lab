@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->String('aset');
             $table->String('kondisi',16);
-            $table->String('keterangan',16);
+            // $table->String('keterangan',16);
             $table->foreignId('lab_id')
             ->constrained(
                 table: 'lab', indexName: 'asetlab_id'

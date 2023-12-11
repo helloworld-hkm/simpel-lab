@@ -388,11 +388,11 @@
 @endpush()
 @section('content')
     <div class="pagetitle">
-        <h1>Detail Komputer</h1>
+        <h1>Detail Komputer as</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/komputer">Data Komputer</a></li>
+                <li class="breadcrumb-item"><a href="/monitoring">Monitoring</a></li>
                 <li class="breadcrumb-item"><a href="/komputer/lab/{{ $data->lab->id }}">{{ $data->lab->nama_lab }}</a>
                 </li>
                 <li class="breadcrumb-item active">PC.{{ $data->no_pc }}</li>
@@ -455,14 +455,14 @@
 
 
                                         <h5 class="card-title d-flex justify-content-between">hardware
-                                            @if (!$unlink_hw->isEmpty())
+                                            {{-- @if (!$unlink_hw->isEmpty())
                                                 <button type="button" data-bs-target="#updatehardwareModal"
                                                     data-bs-toggle="modal" class="btn btn-primary btn-sm"><i
                                                         class="bi bi-arrow-repeat "></i> Update</button>
                                             @else
                                                 <button type="button" class="btn btn-secondary btn-sm"><i
                                                         class="bi bi-arrow-repeat "></i> Update</button>
-                                            @endif
+                                            @endif --}}
                                         </h5>
 
                                         <table class="table table-bordered">
@@ -497,14 +497,14 @@
                                     </div>
                                     <div class="col-xxl-6">
                                         <h5 class="card-title d-flex align-items-center justify-content-between">Software
-                                            @if (!$unlink_sw->isEmpty())
+                                            {{-- @if (!$unlink_sw->isEmpty())
                                                 <button type="button" data-bs-target="#updatesoftwareModal"
                                                     data-bs-toggle="modal" class="btn btn-primary btn-sm"><i
                                                         class="bi bi-arrow-repeat "></i> Update</button>
                                             @else
                                                 <button type="button" class="btn btn-secondary btn-sm"><i
                                                         class="bi bi-arrow-repeat "></i> Update</button>
-                                            @endif
+                                            @endif --}}
                                         </h5>
                                         <table class="table table-bordered">
                                             <thead>

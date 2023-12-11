@@ -90,7 +90,7 @@
     {{-- additional js --}}
 
     @include('templates.partials.js')
-    @stack('additional-js')
+
     <script>
         $(document).ready(function() {
             // Setelah 3 detik, pesan alert dengan class 'myAlert' akan dihapus
@@ -98,7 +98,24 @@
                 $(".alert").hide();
             }, 5500); // 3000 milidetik (3 detik)
         });
+        function formatTanggal(tanggal) {
+            // formater tanggal
+            var tanggalPemeliharaan = tanggal
+                    var tanggalObj = new Date(tanggalPemeliharaan);
+                    var options = {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    };
+                    var tglFormatted = tanggalObj.toLocaleString('id-ID', options).replace(
+                        /\b(\d)\b/g, '0$1');
+                    return tglFormatted
+        }
     </script>
+      @stack('additional-js')
 </body>
 
 </html>

@@ -169,7 +169,7 @@
                                         <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Current
                                             Password</label>
                                         <div class="col-md-8 col-lg-9  has-validation">
-                                            <input type="text"
+                                            <input type="password"
                                                 class="form-control currentPassword "
                                                 name="current_password" id="currentPassword" required>
 

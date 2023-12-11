@@ -7,7 +7,7 @@ use App\Models\Perbaikan;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class countPerbaikan extends ServiceProvider
+class countPerbaikanTKJT extends ServiceProvider
 {
     /**
      * Register services.
@@ -22,9 +22,10 @@ class countPerbaikan extends ServiceProvider
      */
     public function boot(): void
     {
-            $lab_id= Lab::where('role_id','5')->pluck('id')->toArray();
+
+        $lab_id= Lab::where('role_id','4')->pluck('id')->toArray();
         $perbaikanCount = Perbaikan::where('status','menunggu perbaikan')->whereIn('lab_id',$lab_id)->count();
         // Bagikan data ke semua view
-        View::share('perbaikanCount', $perbaikanCount);
+        View::share('perbaikanCountTKJT', $perbaikanCount);
     }
 }

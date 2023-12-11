@@ -13,10 +13,15 @@ class AsetController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->role->id == '4' || auth()->user()->role->id == '2') {
+            $lab = Lab::where('role_id', '4')->with('aset')->get();
+        } else if (auth()->user()->role->id == '5' || auth()->user()->role->id == '3') {
+            $lab = Lab::where('role_id', '5')->with('aset')->get();
+        }
         return view('aset.index',[
             'title'=>'Aset',
             'active'=>'aset',
-            'data'=>Lab::with('aset')->get()
+            'data'=>$lab
         ]);
     }
 

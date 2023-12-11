@@ -15,10 +15,11 @@ class kepala
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check()||auth()->user()->role->id!=2 ||auth()->user()->role->id!=3){
-            abort('403');
+        if(auth()->check()||auth()->user()->role->id==2 ||auth()->user()->role->id==3){
+
+            return $next($request);
             // return view('cek');
         }
-        return $next($request);
+        abort('403');
     }
 }

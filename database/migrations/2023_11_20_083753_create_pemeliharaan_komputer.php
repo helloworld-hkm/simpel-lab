@@ -30,7 +30,7 @@ return new class extends Migration
                 table: 'users', indexName: 'pemeliharaanuser_id'
             )
             ->onUpdate('cascade');
-            $table->date('tanggal');
+            $table->dateTime('tanggal');
             $table->enum('perbaikan', ['butuh perbaikan', 'tidak butuh perbaikan']);
 
         });

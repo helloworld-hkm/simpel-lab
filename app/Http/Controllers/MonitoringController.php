@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hardware;
-use App\Models\Hardware_Pc;
 use App\Models\Komputer;
 use App\Models\Lab;
 use App\Models\Pemeliharaan_komputer;
@@ -11,11 +10,10 @@ use App\Models\Penggantian_Hardware;
 use App\Models\penggantian_software;
 use App\Models\Perbaikan;
 use App\Models\Software;
-use App\Models\Software_Pc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class KomputerController extends Controller
+class MonitoringController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,9 +26,9 @@ class KomputerController extends Controller
             $lab = Lab::where('role_id', '5')->with('komputer')->get();
         }
 
-        return view('komputer.index', [
-            'title' => 'Komputer',
-            'active' => 'komputer',
+        return view('monitoring.laboratorium',[
+            'title'=>'monitoring',
+            'active'=>'monitoring',
             'data' => $lab
         ]);
     }
@@ -44,7 +42,7 @@ class KomputerController extends Controller
         $data = Komputer::where('lab_id', $id)->orderBy('no_pc')->with(['pemeliharaan' => function ($query) {
             $query->latest('tanggal');
         }])->get();
-        return view('komputer.komputer', [
+        return view('monitoring.komputer', [
             'title' => 'Komputer',
             'active' => 'komputer',
             'data' => $data,
@@ -53,16 +51,6 @@ class KomputerController extends Controller
             'software' => $software
         ]);
     }
-
-    public function getData($no_pc,$lab_id){
-        $pc = Komputer::where('no_pc',$no_pc)->where('lab_id',$lab_id)->get();
-
-        return response()->json([
-            'data' => $pc,
-
-        ]);
-    }
-
     public function detail($id, $lab)
     {
         $data = Komputer::where('id', $id)->with('lab')->first();
@@ -80,7 +68,7 @@ class KomputerController extends Controller
         $unlinkSoftware = Software::where('lab_id', $lab)->whereNotIn('id', $swId)->get();
 
 
-        return view('komputer.detail', [
+        return view('monitoring.detail', [
             'title' => 'Komputer',
             'active' => 'komputer',
             'data' => $data,
@@ -94,78 +82,6 @@ class KomputerController extends Controller
         ]);
     }
 
-    public function simpan(Request $request)
-    {
-        //
-        $validatedData = $request->validate(
-            [
-                'no_pc' => 'required',
-                'lab_id' => 'required',
-
-            ],
-
-
-        );
-        $id_lab = $request->input('lab_id');
-        $cek_noPc = Komputer::where('lab_id', $request->input('lab_id'))->where('no_pc', $request->input('no_pc'))->first();
-
-        if ($cek_noPc) {
-            return redirect()->back()->with('nomor_pc_sama', $cek_noPc->no_pc);
-        }
-        $komputer = Komputer::create($validatedData);
-        $lastInsertedId = $komputer->id;
-        // simpan list hardware
-        foreach ($request->input('hardware') as $masterHardwareId => $hardware) {
-
-            Hardware_Pc::create([
-                'hardware_id' => $masterHardwareId,
-                'keterangan' => $hardware['keterangan'],
-                'pc_id' => $lastInsertedId,
-
-            ]);
-        }
-        // simpan daftar software
-        foreach ($request->input('software') as $softwareId => $software) {
-            Software_Pc::create([
-                'software_id' => $softwareId,
-                'keterangan' => $software['keterangan'],
-                'pc_id' => $lastInsertedId,
-
-            ]);
-        }
-        return redirect('/komputer/lab/' . $id_lab)->with('success', $request->input('no_pc'));
-    }
-
-    public function updatehardware(Request $request, $id, $lab_id)
-    {
-        $pc_id = $id;
-        $no_pc = Komputer::find($id);
-
-        foreach ($request->input('hardware') as $masterHardwareId => $hardware) {
-
-            Hardware_Pc::create([
-                'hardware_id' => $masterHardwareId,
-                'keterangan' => $hardware['keterangan'],
-                'pc_id' => $pc_id,
-
-            ]);
-        }
-        return redirect('/komputer/detail/' . $id . '/' . $lab_id)->with('update_spek', $no_pc->no_pc);
-    }
-    public function updatesoftware(Request $request, $id, $lab_id)
-    {
-        $pc_id = $id;
-        $no_pc = Komputer::find($id);
-        foreach ($request->input('software') as $softwareId => $software) {
-            Software_Pc::create([
-                'software_id' => $softwareId,
-                'keterangan' => $software['keterangan'],
-                'pc_id' => $pc_id,
-
-            ]);
-        }
-        return redirect('/komputer/detail/' . $id . '/' . $lab_id)->with('update_spek', $no_pc->no_pc);
-    }
     /**
      * Show the form for creating a new resource.
      */
@@ -179,6 +95,7 @@ class KomputerController extends Controller
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -192,8 +109,9 @@ class KomputerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Komputer $komputer)
     {
+        //
     }
 
     /**

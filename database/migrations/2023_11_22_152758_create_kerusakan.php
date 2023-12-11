@@ -33,8 +33,8 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->string('kerusakan');
             $table->string('keterangan')->nullable()->default('-');
-            $table->date('tgl_kerusakan');
-            $table->date('tgl_selesai')->nullable()->default(null);
+            $table->dateTime('tgl_kerusakan');
+            $table->dateTime('tgl_selesai')->nullable()->default(null);
             $table->enum('status', ['selesai', 'Dalam Perbaikan','menunggu perbaikan'])->default('menunggu perbaikan');
         });
     }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penggantian_Hardware;
-use App\Http\Requests\StorePenggantian_HardwareRequest;
-use App\Http\Requests\UpdatePenggantian_HardwareRequest;
+use App\Models\penggantian_software;
+use Illuminate\Http\Request;
 
-class PenggantianHardwareController extends Controller
+class PenggantianSoftwareController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +26,7 @@ class PenggantianHardwareController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePenggantian_HardwareRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -37,9 +36,9 @@ class PenggantianHardwareController extends Controller
      */
     public function show($id)
     {
-          $hw = Penggantian_Hardware::with('hardware')->find($id);
+        $sw = penggantian_software::with('software')->find($id);
         return response()->json([
-            'hardware' => $hw,
+            'software' => $sw,
 
         ]);
     }
@@ -47,7 +46,7 @@ class PenggantianHardwareController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Penggantian_Hardware $penggantian_Hardware)
+    public function edit(penggantian_software $penggantian_software)
     {
         //
     }
@@ -55,7 +54,7 @@ class PenggantianHardwareController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePenggantian_HardwareRequest $request, Penggantian_Hardware $penggantian_Hardware)
+    public function update(Request $request, penggantian_software $penggantian_software)
     {
         //
     }
@@ -63,7 +62,7 @@ class PenggantianHardwareController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Penggantian_Hardware $penggantian_Hardware)
+    public function destroy(penggantian_software $penggantian_software)
     {
         //
     }

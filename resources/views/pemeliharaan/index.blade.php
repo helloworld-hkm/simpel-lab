@@ -37,7 +37,7 @@
 
 
                     <div class="card-body">
-                        <h5 class="card-title">Tambah Sesi</h5>
+                        <h5 class="card-title">Sesi</h5>
                         <form class=" needs-validation" action="/pemeliharaan" method="POST" novalidate>
                             @csrf
                             <div class="form-floating mb-3 has-validation">
@@ -100,22 +100,24 @@
                                 @endif
                                 <ol class="list-group list-group-numbered">
                                     @foreach ($sesi as $list)
-                                        <a href="pemeliharaan/sesi/{{ $list->id }}/{{ $list->lab_id }}" class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a href="pemeliharaan/sesi/{{ $list->id }}/{{ $list->lab_id }}"
+                                            class="list-group-item d-flex justify-content-between align-items-center">
                                             <div class="ms-2 me-auto">
 
-                                                <div class="fw-bold">@carbon($list->tanggal_mulai)   <span class=" fw-normal"> | Lab {{ $list->lab->nama_lab }}</span></div>
+                                                <div class="fw-bold">@carbon($list->tanggal_mulai) <span class=" fw-normal"> | Lab
+                                                        {{ $list->lab->nama_lab }}</span></div>
                                                 {{ $list->nama_sesi }}
                                             </div>
-                                            {{-- {{ count ($sesi->lab) }}
-                                            @if (count($list->pemeliharaan)==count($sesi))
-                                            <span class="badge bg-success rounded-pill">
-                                             Selesai</span>
-                                            @else --}}
-                                            <span class="badge bg-primary rounded-pill">
-                                                {{ count($list->pemeliharaan) }}
+                                            @if (count($list->pemeliharaan) ==
+                                                    DB::table('pc')->where('lab_id', $list->lab_id)->count() && count($list->pemeliharaan) > 0)
+                                                <span class="badge bg-success rounded-pill">
+                                                    Selesai</span>
+                                            @else
+                                                <span class="badge bg-primary rounded-pill">
+                                                    {{ count($list->pemeliharaan) }}
 
-                                               komputer Selesai</span>
-                                            {{-- @endif --}}
+                                                    komputer</span>
+                                            @endif
 
 
                                         </a>

@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\countLab::class,
         App\Providers\countPerbaikan::class,
+        App\Providers\countPerbaikanTKJT::class,
     ])->toArray(),
 
     /*
