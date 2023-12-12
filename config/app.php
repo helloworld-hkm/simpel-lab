@@ -168,7 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\countLab::class,
+
         App\Providers\countPerbaikan::class,
         App\Providers\countPerbaikanTKJT::class,
     ])->toArray(),
