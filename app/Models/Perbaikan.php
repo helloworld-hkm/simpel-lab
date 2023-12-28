@@ -23,4 +23,7 @@ class Perbaikan extends Model
     public function lab(){
         return $this->belongsTo(Lab::class,'lab_id');
     }
+    public function detail(){
+        return $this->hasMany(detail_perbaikan_komputer::class,'perbaikan_id');
+    }
 }

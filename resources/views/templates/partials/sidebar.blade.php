@@ -98,10 +98,10 @@
                 </a>
             </li>
         @endcan
-        @can('kepala')
+        @cannot('admin')
             <li class="nav-heading">Laporan </li>
             <li class="nav-item">
-                <a class="nav-link collapsed  " href="users-profile.html">
+                <a class="nav-link {{ $active === 'laporan' ? ' ' : 'collapsed' }}  " href="/laporan">
                     <i class="bi bi-filetype-pdf"></i>
                     <span>Laporan</span>
                 </a>

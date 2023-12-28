@@ -57,17 +57,11 @@ class SoftwareSeeder extends Seeder
                     'lab_id' => $i,
                 ]
             );
+            if($i != 4 && $i != 5 && $i != 6)
             Software::create(
                 [
 
                     'software' => 'Software Jaringan',
-                    'lab_id' => $i,
-                ]
-            );
-            Software::create(
-                [
-
-                    'software' => 'Pemprograman',
                     'lab_id' => $i,
                 ]
             );

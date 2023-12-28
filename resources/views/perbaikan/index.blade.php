@@ -88,8 +88,18 @@
                             }));
                         } else {
                             // Tambahkan opsi nomor PC ke dalam input kedua
-                            console.log(data);
-                            $.each(data, function(number, id) {
+                            // $.each(data, function(number, id) {
+                            //     pcSelect.append($('<option>', {
+                            //         value: id,
+                            //         text: number
+                            //     }));
+                            // });
+                            const dataArray = Object.entries(data);
+                            dataArray.sort(([key1, value1], [key2, value2]) => parseInt(key1) - parseInt(key2));
+
+                                console.log(dataArray)
+                            // Iterasi array dan mengisi elemen dropdown
+                            dataArray.forEach(([number, id]) => {
                                 pcSelect.append($('<option>', {
                                     value: id,
                                     text: number
@@ -119,7 +129,8 @@
                     var list = $('#detail_perbaikan');
                     list.empty();
                     $.each(myArray, function(index, item) {
-                        var listItem = $('<li>').text(item.jenis_perbaikan+" : "+item.perbaikan);
+                        var listItem = $('<li>').text(item.jenis_perbaikan + " : " + item
+                            .perbaikan);
                         list.append(listItem);
                     });
                 })
@@ -201,8 +212,8 @@
                             @csrf
                             <div class="form-floating mb-3 has-validation">
                                 <input type="datetime-local" class="form-control" name="tgl_kerusakan"
-                                    value="{{ now() }}" maxlength="255" id="floatingName" placeholder="Your Name"
-                                    required>
+                                    value="{{ now() }}" maxlength="255" id="floatingName"
+                                    placeholder="Your Name" required>
 
                                 <label for="floatingName">Tanggal Kerusakan </label>
                                 <div class="invalid-feedback">
@@ -294,7 +305,7 @@
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-bs-original-title="Analisa Perbaikan"
                                                         aria-describedby="tooltip24154"></i>
-                                                    <span class="d-none d-sm-inline">Analisa Kerusakan</span>
+                                                    <span class="d-none d-sm-inline">Analisa</span>
                                                 </a>
                                                 {{-- <button data-bs-toggle="modal" data-bs-target="#detailModal"
                                                 data-id="{{ $perbaikan->id }}" type="button"
@@ -351,11 +362,17 @@
                                     </div>
                                     {{-- <span class="badge bg-success rounded-pill">{{ $perbaikan->status }}</span> --}}
                                     <div class="">
+                                        <a href="/perbaikan/cetak/{{  $perbaikan->id }}/"
+                                            class="btn btn-success btn-sm my-1 "><i
+                                                class="bi bi-printer"></i>
+                                            <span class="d-none d-sm-inline">Cetak</span>
+
+                                        </a>
                                         <button data-bs-toggle="modal" data-bs-target="#detailModal"
                                             data-id="{{ $perbaikan->id }}" type="button"
                                             class="btn btn-primary btn-sm my-1 btn-detail"><i
                                                 class="bi bi-info-circle"></i>
-                                            <span class="d-none d-sm-inline">Detail Perbaikan</span>
+                                            <span class="d-none d-sm-inline">Detail </span>
 
                                         </button>
                                     </div>

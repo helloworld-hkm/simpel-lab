@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         });
         Blade::directive('carbon_date', function ($expression) {
-            return "<?php echo \\Carbon\\Carbon::parse($expression)->locale('id')->format('d F Y'); ?>";
+            return "<?php echo \\Carbon\\Carbon::parse($expression)->locale('id')->isoFormat('DD MMMM Y'); ?>";
 
         });
 

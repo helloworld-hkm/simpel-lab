@@ -34,7 +34,9 @@ class DatabaseSeeder extends Seeder
             LabSeeder::class,
             HardwareSeeder::class,
             SoftwareSeeder::class,
-            Prosedur::class
+            Prosedur::class,
+            AsetSeeder::class,
+            SpekPCSeeder::class
         ]);
 
 

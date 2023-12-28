@@ -49,13 +49,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 1,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'GPU / Kartu Grafis ',
-                'lab_id' => 1,
-            ]
-        );
         Hardware::create(
             [
 
@@ -84,13 +78,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 1,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'NIC/Kartu Jaringan',
-                'lab_id' => 1,
-            ]
-        );
         // data untuk lab tkj 2
         Hardware::create(
             [
@@ -127,13 +115,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 2,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'GPU / Kartu Grafis ',
-                'lab_id' => 2,
-            ]
-        );
         Hardware::create(
             [
 
@@ -162,13 +144,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 2,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'NIC/Kartu Jaringan',
-                'lab_id' => 2,
-            ]
-        );
         // data untuk lab tkj 3
         // pembatas lab
         Hardware::create(
@@ -206,13 +182,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 3,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'GPU / Kartu Grafis ',
-                'lab_id' => 3,
-            ]
-        );
         Hardware::create(
             [
 
@@ -285,13 +255,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 4,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'GPU / Kartu Grafis ',
-                'lab_id' => 4,
-            ]
-        );
         Hardware::create(
             [
 
@@ -364,13 +328,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 5,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'GPU / Kartu Grafis ',
-                'lab_id' => 5,
-            ]
-        );
         Hardware::create(
             [
 
@@ -443,13 +401,7 @@ class HardwareSeeder extends Seeder
                 'lab_id' => 6,
             ]
         );
-        Hardware::create(
-            [
 
-                'hardware' => 'GPU / Kartu Grafis ',
-                'lab_id' => 6,
-            ]
-        );
         Hardware::create(
             [
 
@@ -619,13 +571,6 @@ class HardwareSeeder extends Seeder
             [
 
                 'hardware' => 'mouse',
-                'lab_id' => 8,
-            ]
-        );
-        Hardware::create(
-            [
-
-                'hardware' => 'NIC/Kartu Jaringan',
                 'lab_id' => 8,
             ]
         );

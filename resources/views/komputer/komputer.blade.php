@@ -326,7 +326,7 @@
                 <h5 class="text-center">data kosong</h5>
             @endif
             @foreach ($data as $komputer)
-                <div class="col-xxl-3 col-md-5">
+                <div class="col-xxl-3 col-md-4">
 
                     <div class="card info-card {{ $komputer->status == 'Rusak' ? 'customers-card' : 'revenue-card' }}">
 

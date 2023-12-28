@@ -6,12 +6,12 @@ use App\Models\detail_perbaikan_komputer;
 use App\Models\Hardware_Pc;
 use App\Models\Komputer;
 use App\Models\Lab;
-use App\Models\Pemeliharaan_komputer;
 use App\Models\Penggantian_Hardware;
 use App\Models\penggantian_software;
 use App\Models\Perbaikan;
 use App\Models\Software_Pc;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class PerbaikanController extends Controller
 {
@@ -60,6 +60,7 @@ class PerbaikanController extends Controller
             'lab_id' => $request->input('lab_id'),
             'kerusakan' => $request->input('kerusakan'),
             'tgl_kerusakan' => $request->input('tgl_kerusakan'),
+            'keterangan' => $request->input('keterangan'),
             'tgl_selesai' => null,
         ];
         Perbaikan::create($data);
@@ -75,7 +76,8 @@ class PerbaikanController extends Controller
      */
     public function show($lab_id)
     {
-        $pcs = Komputer::where('lab_id', $lab_id)->orderBy('no_pc')->pluck('id', 'no_pc');
+
+        $pcs = Komputer::where('lab_id', $lab_id)->pluck('id', 'no_pc');
 
         return response()->json($pcs);
     }
@@ -102,6 +104,19 @@ class PerbaikanController extends Controller
 
         ]);
     }
+    public function cetakPerbaikan($id){
+        $perbaikan = Perbaikan::with('pc')->with('lab')->find($id);
+        $daftar = detail_perbaikan_komputer::where('perbaikan_id', $id)->get();
+        $pdf = FacadePdf ::loadview('perbaikan.laporan', [
+            'perbaikan' => $perbaikan,
+            'daftar' => $daftar,
+
+        ]);
+        $pdf->setPaper('A4', 'portrait');
+        // // Render the HTML as PDF
+        $pdf->render();
+        return $pdf->stream('Hasil Pemeliharaan pc' . $perbaikan->pc->no_pc . '-' . $perbaikan->tgl_kerusakan . '.pdf', array("Attachment" => false));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -117,6 +132,7 @@ class PerbaikanController extends Controller
     {
         $perbaikan = Perbaikan::find($id);
         $perbaikan->status = $request->input('status');
+        $perbaikan->keterangan = $request->input('keterangan');
         $perbaikan->save();
 
         if ($request->input('perbaikan', [])) {

@@ -11,4 +11,7 @@ class detail_pemeliharaan_komputer extends Model
     protected $table='detail_pemeliharaan_komputer';
     protected $fillable = ['pemeliharaan_id', 'prosedur_id'];
     public $timestamps = false;
+    public function perbaikan(){
+        return $this->belongsTo(Perbaikan::class);
+    }
 }

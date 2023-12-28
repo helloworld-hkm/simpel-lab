@@ -231,7 +231,7 @@
                 <h5 class="text-center my-5">Tidak ada data komputer</h5>
             @endif
             @foreach ($data as $komputer)
-                <div class="col-xxl-3 col-md-5">
+                <div class="col-xxl-3 col-md-4">
                     @if ($komputer->pemeliharaan->isEmpty())
                         <div class="card info-card revenue-card }} ">
                         @else
@@ -304,9 +304,9 @@
                                         Pc.{{ $komputer->no_pc }} | {{ $pemeliharaan->perbaikan }}
                                     </span>
                                     <div class="d-flex flex-sm-column flex-md-row justify-content-end gap-2">
-                                        <button data-bs-toggle="modal" data-bs-target="#tambahModal" type="button"
+                                        <a href="/pemeliharaan/cetak/{{  $pemeliharaan->id }}/"
                                             class="btn btn-success btn-sm my-1"><i class="bi bi-printer"></i> Cetak
-                                        </button>
+                                        </a>
 
                                         <button data-bs-toggle="modal" data-bs-target="#detailModal"
                                             data-id="{{ $pemeliharaan->id }}" type="button"

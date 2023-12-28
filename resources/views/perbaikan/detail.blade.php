@@ -337,6 +337,17 @@
                                         <div class="invalid-feedback">
                                             Data Status harus diisi!
                                         </div>
+
+
+                                    </div>
+                                    <div class="form-floating mb-3 has-validation" id="keterangan">
+                                        <input type="text" class="form-control" name="keterangan" id="kerusakan" maxlength="255"
+                                            placeholder="Your Name" value="{{ $detail->keterangan }}">
+
+                                        <label for="floatingName">Keterangan </label>
+                                        <div class="invalid-feedback">
+                                            keterangan harus diisi
+                                        </div>
                                     </div>
 
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aset;
 use App\Models\Hardware;
 use App\Models\Komputer;
 use App\Models\Lab;
@@ -20,9 +21,9 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->role->id == '4' || auth()->user()->role->id == '2') {
+        if ( auth()->user()->role->id == '2') {
             $lab = Lab::where('role_id', '4')->with('komputer')->get();
-        } else if (auth()->user()->role->id == '5' || auth()->user()->role->id == '3') {
+        } else if (auth()->user()->role->id == '3') {
             $lab = Lab::where('role_id', '5')->with('komputer')->get();
         }
 
@@ -42,10 +43,12 @@ class MonitoringController extends Controller
         $data = Komputer::where('lab_id', $id)->orderBy('no_pc')->with(['pemeliharaan' => function ($query) {
             $query->latest('tanggal');
         }])->get();
+        $dataAsset = Aset::where('lab_id',$id)->get();
         return view('monitoring.komputer', [
             'title' => 'Komputer',
             'active' => 'komputer',
             'data' => $data,
+            'dataAsset' => $dataAsset,
             'lab' => $lab,
             'list' => $hardware,
             'software' => $software

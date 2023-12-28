@@ -271,9 +271,14 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row" width="50%">Keterangan</th>
+                                    <td id="keterangan">-</td>
+                                </tr>
+                                <tr>
                                     <th scope="row" width="50%">Status</th>
                                     <td id="status"></td>
                                 </tr>
+
                             </tbody>
                         </table>
 
@@ -347,6 +352,9 @@
                     $("#detail_selesai").html(data.perbaikan.tgl_selesai);
                     $("#status").html(data.perbaikan.status);
                     $("#ket").html(data.perbaikan.kerusakan);
+                    if (data.perbaikan.status!='selesai') {
+                        $("#keterangan").html(data.perbaikan.keterangan);
+                    }
 
                     var myArray = data.daftar;
                     var list = $('#detail_perbaikan');

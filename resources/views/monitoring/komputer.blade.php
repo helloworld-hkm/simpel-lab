@@ -20,10 +20,10 @@
 
     <div class="row">
         @if ($data->isEmpty())
-            <h5 class="text-center">data kosong</h5>
+            <h5 class="text-center">data Komputer kosong</h5>
         @endif
         @foreach ($data as $komputer)
-            <div class="col-xxl-3 col-md-5">
+            <div class="col-xxl-3 col-md-4">
 
                 <div class="card info-card {{ $komputer->status == 'Rusak' ? 'customers-card' : 'revenue-card' }}">
 
@@ -67,18 +67,18 @@
 
               <!-- List group With badges -->
               <ul class="list-group">
+                @if ($dataAsset->isEmpty())
+                <h5 class="text-center">data Aset kosong</h5>
+            @endif
+
+                @foreach ($dataAsset as $asset)
+
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                  A list item
-                  <span class="badge bg-primary rounded-pill">14</span>
+                  {{ $asset->aset }}
+                  <span class="badge bg-primary rounded-pill"> {{ $asset->kondisi }}</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  A second list item
-                  <span class="badge bg-primary rounded-pill">2</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  A third list item
-                  <span class="badge bg-primary rounded-pill">1</span>
-                </li>
+                @endforeach
+
               </ul><!-- End List With badges -->
 
             </div>

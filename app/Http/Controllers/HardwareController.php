@@ -14,10 +14,10 @@ class HardwareController extends Controller
     public function index()
     {
 
-        if(auth()->user()->role->id=='4'||auth()->user()->role->id=='2'){
+        if(auth()->user()->role->id=='4'){
             $lab= Lab::where('role_id','4')->with('hardware')->get();
          }
-         else if(auth()->user()->role->id=='5'||auth()->user()->role->id=='3'){
+         else if(auth()->user()->role->id=='5'){
             $lab= Lab::where('role_id','5')->with('hardware')->get();
          }
         return view('hardware.index',[

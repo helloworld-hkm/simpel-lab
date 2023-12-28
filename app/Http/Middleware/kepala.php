@@ -15,11 +15,11 @@ class kepala
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->check()||auth()->user()->role->id==2 ||auth()->user()->role->id==3){
+        if(auth()->user()->role->id==2 ||auth()->user()->role->id==3){
 
             return $next($request);
             // return view('cek');
         }
-        abort('403');
+        abort('403','Akses Ditolak');
     }
 }

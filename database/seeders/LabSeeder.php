@@ -25,7 +25,7 @@ class LabSeeder extends Seeder
 
             [
 
-                'nama_lab' => 'lab TKJ 2',
+                'nama_lab' => 'TKJ 2',
                 'role_id' => '4',
             ]
         );

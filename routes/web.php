@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HardwareController;
 use App\Http\Controllers\KomputerController;
 use App\Http\Controllers\LabController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PemeliharaanKomputerController;
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/komputer/lab/{id}', [KomputerController::class, 'shortByLab']);
         Route::post('/komputer/simpan', [KomputerController::class, 'simpan']);
         Route::get('/komputer/detail/{id}/{lab}', [KomputerController::class, 'detail']);
+
         Route::get('/komputer/getData/{no_pc}/{lab_id}', [KomputerController::class, 'getData']);
         Route::post('/komputer/updateHardware/{id}/{lab}', [KomputerController::class, 'updatehardware']);
         Route::post('/komputer/updateSoftware/{id}/{lab}', [KomputerController::class, 'updatesoftware']);
@@ -75,10 +77,19 @@ Route::middleware(['auth'])->group(function () {
     // url untuk jquery (return data json)
     Route::get('/pemeliharaan/detail/{id}', [PemeliharaanKomputerController::class, 'getData']);
     Route::get('/perbaikan/detailPerbaikan/{id}', [PerbaikanController::class, 'getData']);
+    Route::get('/laporan/get/{labId}', [LaporanController::class, 'getData']);
+    Route::post('/laporan/filterData', [LaporanController::class, 'filterData']);
     // penggantian hardware
     Route::resource('penggantian_hardware', PenggantianHardwareController::class);
     // penggantaian software
     Route::resource('penggantian_software', PenggantianSoftwareController::class);
+    // cetak
+    Route::get('/pemeliharaan/cetak/{id}', [PemeliharaanKomputerController::class, 'cetakPemeliharaan']);
+    Route::get('/perbaikan/cetak/{id}', [PerbaikanController::class, 'cetakPerbaikan']);
+    // laporan
+    // Route::middleware(['tim_mr | kepala'])->group(function () {
+        Route::resource('laporan', LaporanController::class);
+    // });
     Route::middleware(['kepala'])->group(function () {
         // route group untuk role kepala : monitoring keadaan lab dan laporan
         Route::resource('monitoring', MonitoringController::class);
