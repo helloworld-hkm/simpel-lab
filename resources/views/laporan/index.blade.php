@@ -63,6 +63,10 @@
                     // console.log(data.pemeliharaan)
                     // console.log(data.pemeliharaan.length)
                     // if (data.pemeliharaan.length > 0) {
+                    $('#input_lab_id').val(lab)
+                    $('#input_pc_id').val(komputer)
+                    $('#input_tgl_awal').val(startDate)
+                    $('#input_tgl_akhir').val(endDate)
                     displayTable(data);
                     $('#result-table').show();
                     $('#no-data-message').hide();
@@ -89,7 +93,7 @@
             tablePerbaikan.empty();
             console.log('tampil')
             var i = 1
-            if(data.pemeliharaan ==0){
+            if (data.pemeliharaan == 0) {
                 var row = '<tr > <td colspan="6" class="text-center">Tidak Ada data Pemeliharaan</td></tr>';
                 tablePemeliharaan.append(row);
             }
@@ -105,12 +109,12 @@
                 tablePemeliharaan.append(row);
             });
             var x = 1
-            if(data.perbaikan ==0){
+            if (data.perbaikan == 0) {
                 var row = '<tr > <td colspan="6" class="text-center">Tidak Ada data Perbaikan</td></tr>';
-                    tablePerbaikan.append(row);
+                tablePerbaikan.append(row);
             }
             $.each(data.perbaikan, function(index, item) {
-                var tgl_selesai=item.tgl_selesai ?item.tgl_selesai: '-'
+                var tgl_selesai = item.tgl_selesai ? item.tgl_selesai : '-'
                 var row = '<tr>' +
                     '<td>' + x++ + '</td>' +
                     '<td>' + item.kerusakan + '</td>' +
@@ -227,7 +231,15 @@
                     <div class="card-body">
                         <div class="card-title d-flex justify-content-between align-items-center">
                             <h5 class="fw-bold mb-0">Hasil</h5>
-                            <button class="btn btn-success ml-auto"><i class="bi bi-printer"></i> Cetak Laporan</button>
+                            <form action="/laporan/cetak" method="post" target="_blank">
+                                @csrf
+                                <input type="text" name="input_lab_id"  id="input_lab_id">
+                                <input type="text" name="input_pc_id"  id="input_pc_id">
+                                <input type="text" name="input_tgl_awal"  id="input_tgl_awal">
+                                <input type="text" name="input_tgl_akhir"  id="input_tgl_akhir">
+                                <button class="btn btn-success ml-auto"><i class="bi bi-printer"></i> Cetak Laporan</button>
+                            </form>
+
                         </div>
                         <div class="row card-footer">
                             <div class="col-12 ">
@@ -305,8 +317,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div><!-- End Recent Activity -->
 
             </div><!-- End Right side columns -->

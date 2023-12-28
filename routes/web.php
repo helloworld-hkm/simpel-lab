@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perbaikan/detailPerbaikan/{id}', [PerbaikanController::class, 'getData']);
     Route::get('/laporan/get/{labId}', [LaporanController::class, 'getData']);
     Route::post('/laporan/filterData', [LaporanController::class, 'filterData']);
+    Route::post('/laporan/cetak', [LaporanController::class, 'cetakLaporan']);
     // penggantian hardware
     Route::resource('penggantian_hardware', PenggantianHardwareController::class);
     // penggantaian software
