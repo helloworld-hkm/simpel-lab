@@ -52,47 +52,32 @@
     </style>
 
     <center>
-        <h3> LEMBAR PEMELIHARAAN DAN PERBAIKAN KOMPUTER </h4>
+        <h3> LEMBAR PEMELIHARAAN DAN PERBAIKAN KOMPUTER LAB {{ $lab->nama_lab }} </h4>
             @if ($tgl_awal != '' && $tgl_akhir != '')
                 <h4> Periode @carbon_date($tgl_awal) sampai @carbon_date($tgl_akhir) </h4>
             @endif
     </center>
 
-    <table class="table table-bordered">
-        <tbody>
 
-
-            <tr>
-                <th scope="col">Nomor PC</th>
-                <td scope="col">{{ $pc->no_pc }}</td>
-            </tr>
-            <tr>
-                <th scope="col">Tempat ALat</th>
-                <td scope="col">Lab {{ $lab->nama_lab }}</td>
-            </tr>
-            <tr>
-                <th scope="col">Kondisi</th>
-                <td scope="col"> {{ $pc->status }}</td>
-            </tr>
-        </tbody>
-    </table>
     <h4 class="">Pemeliharaan</h4>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Tanggal</th>
+                <th scope="col">No PC</th>
                 <th scope="col">Pelakasana</th>
                 <th scope="col">Hasil</th>
 
             </tr>
         </thead>
-        <tbody id="table-pemeliharaan">
+        <tbody id="table-pemeliharaan-semua">
 
             @foreach ($pemeliharaan as $data)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td> @carbon($data->tanggal) </td>
+                    <td>{{ $data->pc->no_pc }}</td>
                     <td>{{ $data->user->fullname }}</td>
                     <td>{{ $data->perbaikan }}</td>
 
@@ -113,17 +98,19 @@
                     <th scope="col">#</th>
                     <th scope="col">Kerusakan</th>
                     <th scope="col">Tanggal kerusakan</th>
+                    <th scope="col">No PC</th>
                     <th scope="col">perbaikan</th>
                     <th scope="col">Tanggal Selesai</th>
                     <th scope="col">Status</th>
                 </tr>
             </thead>
-            <tbody id="table-perbaikan">
+            <tbody id="table-perbaikan-semua">
                 @foreach ($perbaikan as $daftar)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $daftar->kerusakan }}</td>
                         <td>@carbon_short($daftar->tgl_kerusakan)</td>
+                        <td>{{ $daftar->pc->no_pc }}</td>
                         <td>
                             <ul>
                                 @foreach ($daftar->detail as $detail)
@@ -133,7 +120,7 @@
                             </ul>
 
                         </td>
-                        @if ($daftar->tgl_selesai)
+                        @if ($daftar->kerusakan)
                             <td>@carbon_short($daftar->tgl_selesai)</td>
                         @else
                             <td>-</td>

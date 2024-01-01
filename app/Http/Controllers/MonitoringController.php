@@ -26,6 +26,9 @@ class MonitoringController extends Controller
         } else if (auth()->user()->role->id == '3') {
             $lab = Lab::where('role_id', '5')->with('komputer')->get();
         }
+         else if (auth()->user()->role->id == '1') {
+            $lab = Lab::with('komputer')->get();
+        }
 
         return view('monitoring.laboratorium',[
             'title'=>'monitoring',

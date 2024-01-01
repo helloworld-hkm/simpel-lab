@@ -58,6 +58,15 @@
                 </a>
             </li>
         @endcan
+        @can('admin')
+
+            <li class="nav-item">
+                <a class="nav-link {{ $active === 'monitoring' ? ' ' : 'collapsed' }}  " href="/monitoring">
+                    <i class="bi bi-pc-display"></i>
+                    <span>Monitoring</span>
+                </a>
+            </li>
+        @endcan
         @can('maintenanceRepair')
             <li class="nav-item">
                 <a class="nav-link {{ $active === 'komputer' ? ' ' : 'collapsed' }}  " href="/komputer">
@@ -98,7 +107,7 @@
                 </a>
             </li>
         @endcan
-        @cannot('admin')
+
             <li class="nav-heading">Laporan </li>
             <li class="nav-item">
                 <a class="nav-link {{ $active === 'laporan' ? ' ' : 'collapsed' }}  " href="/laporan">
@@ -106,7 +115,7 @@
                     <span>Laporan</span>
                 </a>
             </li>
-        @endcan
+
 
 
 

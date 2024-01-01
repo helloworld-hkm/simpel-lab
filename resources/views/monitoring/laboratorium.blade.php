@@ -20,7 +20,17 @@
         @foreach ($data as $lab)
         <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
+                {{-- <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="">
+                      <li class="dropdown-header text-start">
+                        <h6>Lainnya</h6>
+                      </li>
 
+                      <li><a class="dropdown-item" href="#"> <i class="bi bi-printer"></i> Cetak</a></li>
+
+                    </ul>
+                  </div> --}}
 
                 <a href="/monitoring/komputer/{{ $lab->id }}">
                 <div class="card-body">
@@ -31,15 +41,21 @@
                             <i class="bi bi-door-open"></i>
                         </div>
                         <div class="ps-3">
+                            <?php $rusakCount=0 ?>
                             <h6>  {{ $lab->nama_lab }}</h6>
                             @foreach ($lab->komputer as $komputer)
-                            @if ($komputer->status === 'rusak')
+                            @if ($komputer->status === 'Rusak')
                                 @php
                                     $rusakCount++; // Increment the count for each damaged computer
                                 @endphp
                             @endif
+                            {{-- <span class="text-success small pt-1 fw-bold">{{ $rusakCount }}</span> <span class="text-muted small pt-2 ps-1">Rusak</span> --}}
                         @endforeach
                             <span class="text-success small pt-1 fw-bold">{{ count($lab->komputer) }}</span> <span class="text-muted small pt-2 ps-1">komputer</span>
+                            @if ($rusakCount>0)
+
+                            <span class="text-danger small pt-1 fw-bold">{{ $rusakCount }}</span> <span class="text-danger small pt-2 ps-1"> Rusak</span>
+                            @endif
 
                         </div>
                     </div>

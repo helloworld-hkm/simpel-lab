@@ -25,6 +25,9 @@ class LaporanController extends Controller
             $lab_id = Lab::where('role_id', '5')->pluck('id')->toArray();
 
         }
+        else{
+            $lab = Lab::with('komputer')->get();
+        }
         $list_sesi = Sesi_Pemeliharaan::where('lab_id', '1')->pluck('id')->toArray();
         $pemeliharaan = Pemeliharaan_komputer::with('user')->where('pc_id','1')->whereIn('sesi_id',$list_sesi)->get();
         $list_perbaikan = Perbaikan::with('detail')->where('lab_id', '1')->where('pc_id','1')->get();
@@ -49,8 +52,18 @@ class LaporanController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $list_sesi = Sesi_Pemeliharaan::where('lab_id', $lab)->pluck('id')->toArray();
-        $pemeliharaan = Pemeliharaan_komputer::with('user')->whereIn('sesi_id', $list_sesi)->where('pc_id', $komputer);
-        $perbaikan = Perbaikan::with('detail')->where('lab_id', $lab)->where('pc_id',$komputer);
+        $pemeliharaan = Pemeliharaan_komputer::with('user')->with('pc')->whereIn('sesi_id', $list_sesi);
+        $perbaikan = Perbaikan::with('detail')->with('pc')->with('lab')->where('lab_id', $lab);
+        if ($komputer ) {
+            if($komputer!='semua'){
+                $pemeliharaan->where('pc_id', $komputer);
+                $perbaikan->where('pc_id', $komputer);
+            }
+            else{
+                // $pemeliharaan->order('pc_id');
+                // $perbaikan->order('lab_id');
+            }
+        }
         if ($startDate && $endDate) {
             $pemeliharaan->whereBetween('tanggal', [$startDate, $endDate]);
             $perbaikan->whereBetween('tgl_kerusakan', [$startDate, $endDate]);
@@ -68,13 +81,14 @@ class LaporanController extends Controller
             'perbaikan'=>$resultPerbaikan
         ]);
     }
+
     public function cetakLaporan(Request $request){
         $lab=$request->input('input_lab_id');
         $pc=$request->input('input_pc_id');
         $tgl_awal=$request->input('input_tgl_awal');
         $tgl_akhir=$request->input('input_tgl_akhir');
         $list_sesi = Sesi_Pemeliharaan::where('lab_id', '1')->pluck('id')->toArray();
-        $pemeliharaan = Pemeliharaan_komputer::with('user')->whereIn('sesi_id', $list_sesi)->where('pc_id', $pc);
+        $pemeliharaan = Pemeliharaan_komputer::with('user')->with('pc')->whereIn('sesi_id', $list_sesi)->where('pc_id', $pc);
         $perbaikan = Perbaikan::with('detail')->where('lab_id', $lab)->where('pc_id',$pc);
         if ($tgl_awal && $tgl_akhir) {
             $pemeliharaan->whereBetween('tanggal', [$tgl_awal, $tgl_akhir]);
@@ -86,19 +100,62 @@ class LaporanController extends Controller
         }
         $resultPemeliharaan = $pemeliharaan->get();
         $resultPerbaikan = $perbaikan->get();
-
+        $resultPc=Komputer::find($pc);
+        $resultLab=Lab::find($lab);
 
         $pdf = Pdf::loadview('laporan.cetak', [
             'pemeliharaan'=>$resultPemeliharaan,
             'perbaikan'=>$resultPerbaikan,
             'tgl_awal'=>$tgl_awal,
-            'tgl_akhir'=>$tgl_akhir
+            'tgl_akhir'=>$tgl_akhir,
+            'pc'=>$resultPc,
+            'lab'=>$resultLab
         ]);
         $pdf->setPaper('A4', 'landscape');
         // // Render the HTML as PDF
         $pdf->render();
-        return $pdf->stream('Laporan', array("Attachment" => false));
-        // return $pdf->stream('Hasil Pemeliharaan pc' . $pemeliharaan->pc->no_pc . '-' . $pemeliharaan->tanggal . '.pdf', array("Attachment" => false));
+        // return $pdf->stream('Laporan', array("Attachment" => false));
+        return $pdf->stream('Laporan Pemeliharaan dan perbaikan PC-'. $resultPc->no_pc.' Lab-'.$resultLab->nama_lab. '.pdf', array("Attachment" => false));
+    }
+    public function cetakLaporanLab(Request $request){
+        $lab = $request->input('input_lab_id');
+        $komputer = $request->input('input_pc_id');
+        $startDate = $request->input('input_tgl_awal');
+        $endDate = $request->input('input_tgl_akhir');
+        $list_sesi = Sesi_Pemeliharaan::where('lab_id', $lab)->pluck('id')->toArray();
+        $pemeliharaan = Pemeliharaan_komputer::with('user')->with('pc')->whereIn('sesi_id', $list_sesi);
+        $perbaikan = Perbaikan::with('detail')->with('pc')->with('lab')->where('lab_id', $lab);
+        if ($komputer ) {
+            if($komputer!='semua'){
+                $pemeliharaan->where('pc_id', $komputer);
+                $perbaikan->where('pc_id', $komputer);
+            }
+            else{
+                // $pemeliharaan->order('pc_id');
+                // $perbaikan->order('lab_id');
+            }
+        }
+        if ($startDate && $endDate) {
+            $pemeliharaan->whereBetween('tanggal', [$startDate, $endDate]);
+            $perbaikan->whereBetween('tgl_kerusakan', [$startDate, $endDate]);
+        }
+        $resultPemeliharaan = $pemeliharaan->get();
+        $resultPerbaikan = $perbaikan->get();
+
+        $resultLab=Lab::find($lab);
+
+        $pdf = Pdf::loadview('laporan.cetak_lab', [
+            'pemeliharaan'=>$resultPemeliharaan,
+            'perbaikan'=>$resultPerbaikan,
+            'tgl_awal'=>$startDate,
+            'tgl_akhir'=>$endDate,
+            'lab'=>$resultLab
+        ]);
+        $pdf->setPaper('A4', 'landscape');
+        // // Render the HTML as PDF
+        $pdf->render();
+        // return $pdf->stream('Laporan', array("Attachment" => false));
+        return $pdf->stream('Laporan Pemeliharaan dan perbaikan Lab-'.$resultLab. '.pdf', array("Attachment" => false));
     }
     /**
      * Show the form for creating a new resource.

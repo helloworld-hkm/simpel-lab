@@ -2,29 +2,53 @@
 <html>
 <head>
 	<title>Hasil Pemeliharaan</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
 
 <body>
     <style type="text/css">
-        table tr td,
-        table tr th {
-            /* font-size: 9pt; */
-        }
+        body {
+           font-family: 'Arial', sans-serif; /* Set your preferred font family */
+       }
 
-        /* Style for the footer */
-        #footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            padding: 10px;
-           color:rgb(94, 94, 94)
-        }
-    </style>
+       table {
+           width: 100%;
+           border-collapse: collapse;
+           margin-bottom: 20px;
+           font-size: 14px; /* Set your preferred font size for tables */
+       }
+
+       table th,
+       table td {
+           border: 1px solid #ddd;
+           padding: 8px;
+           text-align: left;
+       }
+
+       #footer {
+           position: fixed;
+           bottom: 0;
+           width: 100%;
+           text-align: center;
+           padding: 10px;
+           margin-top: 20px;
+           font-size: 12px; /* Set your preferred font size for the footer */
+           color: rgb(94, 94, 94);
+       }
+
+       table th {
+           background-color: #f2f2f2;
+           font-size: 14px; /* Set your preferred font size for table headers */
+       }
+
+       .card-title {
+           text-align: center;
+           font-size: 18px; /* Set your preferred font size for card titles */
+           margin-bottom: 10px; /* Add a little spacing between card titles and content */
+       }
+   </style>
 	<center>
-		<h5> Hasil Pemeliharaan</h4>
+		<h3> Hasil Pemeliharaan</h4>
 	</center>
     <div id="footer">
         <p>&copy; <?php echo date("Y"); ?> Hasil Pemeliharaan - Dicetak tanggal @carbonNowShort()</p>

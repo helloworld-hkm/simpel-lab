@@ -22,7 +22,7 @@
             <div class="row">
 
                 <!-- Sales Card -->
-                <div class="col-xxl-6 col-xl-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card info-card sales-card">
 
                         <div class="filter">
@@ -47,7 +47,7 @@
                     </div>
                 </div><!-- End Sales Card -->
                 <!-- Customers Card -->
-                <div class="col-xxl-6 col-xl-6">
+                <div class="col-xl-4 col-md-6">
 
                     <div class="card info-card customers-card">
 
@@ -73,6 +73,37 @@
                     </div>
 
                 </div>
+
+
+                <!-- Revenue Card -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card info-card revenue-card">
+
+                        <div class="filter">
+                            <a class="icon" href="/monitoring"><i class="bi bi-arrow-up-right-square"></i> </a>
+
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Komputer </h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-pc-display"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>{{ $komputer }}</h6>
+                                    @if ($pc_rusak > 0)
+                                        <a href="/monitoring" class="link text-danger small pt-1 fw-bold">{{ $pc_rusak }}
+                                            Komputer</a> <span class="text-muted small pt-2 ps-1">Bermasalah</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- End Revenue Card -->
+
                 <!-- End Customers Card -->
                 {{-- tampilan untuk tim mr --}}
             </div>
@@ -291,6 +322,74 @@
             </div><!-- End Left side columns -->
 
 
+
+        </div>
+        @endcan
+
+        @can('kepala')
+        <div class="row">
+
+            <!-- Sales Card -->
+            <div class="col-xxl-6 col-xl-6">
+                <div class="card info-card sales-card">
+
+                    <div class="filter">
+                        <a class="icon" href="/monitoring"><i class="bi bi-arrow-up-right-square"></i> </a>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Laboratorium </h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-door-open"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ count($labs )}}</h6>
+                                {{-- @foreach ($labs as $lab)
+
+                                <span class="text-muted small pt-2 ps-1">{{ $lab->nama_lab }}</span>
+                                @endforeach --}}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-6 col-xl-6">
+                <div class="card info-card revenue-card">
+
+                    <div class="filter">
+                        <a class="icon" href="/monitoring"><i class="bi bi-arrow-up-right-square"></i> </a>
+
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Komputer </h5>
+
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-pc-display"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ $komputer }}</h6>
+                                @if ($pc_rusak > 0)
+                                    <a href="/monitoring" class="link text-danger small pt-1 fw-bold">{{ $pc_rusak }}
+                                        Komputer</a> <span class="text-muted small pt-2 ps-1">Bermasalah</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+
+            <!-- End Customers Card -->
 
         </div>
         @endcan

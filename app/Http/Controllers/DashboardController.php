@@ -25,13 +25,15 @@ class DashboardController extends Controller
         }
         else{
             $lab=Lab::all();
-            $pc=[];
+            $pc=Komputer::all();
             $list_sesi=[];
             $list_perbaikan=[];
+            $pc_rusak=count(Komputer::where('status','Rusak')->get());
         }
         // selain admin
         if(!(auth()->user()->role->id=='1')){
         $pc=Komputer::whereIn('lab_id',$lab_id)->get();
+        $pc_rusak=count(Komputer::where('status','Rusak')->whereIn('lab_id',$lab_id)->get());
         $hariIni = Carbon::now()->format('Y-m-d');
         $list_sesi=Sesi_Pemeliharaan::with('pemeliharaan')->whereIn('lab_id',$lab_id)->where('tanggal_mulai',$hariIni)->get();
          $list_perbaikan = Perbaikan::with('lab')->with('pc')->whereIn('lab_id', $lab_id)->whereNot('status', 'selesai')->orderBy('id', 'desc')->get();
@@ -43,7 +45,8 @@ class DashboardController extends Controller
             "labs"=>$lab,
             "komputer"=>count($pc),
             "sesi"=> $list_sesi,
-            "list_perbaikan"=>$list_perbaikan
+            "list_perbaikan"=>$list_perbaikan,
+            "pc_rusak"=>$pc_rusak
         ]);
     }
 }

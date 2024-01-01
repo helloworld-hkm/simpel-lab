@@ -80,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/get/{labId}', [LaporanController::class, 'getData']);
     Route::post('/laporan/filterData', [LaporanController::class, 'filterData']);
     Route::post('/laporan/cetak', [LaporanController::class, 'cetakLaporan']);
+    Route::post('/laporan/cetakLab', [LaporanController::class, 'cetakLaporanLab']);
     // penggantian hardware
     Route::resource('penggantian_hardware', PenggantianHardwareController::class);
     // penggantaian software
@@ -91,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::middleware(['tim_mr | kepala'])->group(function () {
         Route::resource('laporan', LaporanController::class);
     // });
-    Route::middleware(['kepala'])->group(function () {
+    Route::middleware(['monitoring'])->group(function () {
         // route group untuk role kepala : monitoring keadaan lab dan laporan
         Route::resource('monitoring', MonitoringController::class);
         Route::get('/monitoring/komputer/{id}', [MonitoringController::class, 'shortByLab']);
