@@ -28,12 +28,12 @@ class countPerbaikan extends ServiceProvider
         // $perbaikanCount = Perbaikan::where('status','menunggu perbaikan')->whereIn('lab_id',$lab_id)->count();
         // // Bagikan data ke semua view
         // View::share('perbaikanCount', $perbaikanCount);
-        if (Schema::hasTable('lab') ) {
-            $labIds = Lab::where('role_id', '5')->pluck('id')->toArray();        
-            $perbaikanCount = Perbaikan::where('status', 'menunggu perbaikan')->whereIn('lab_id', $labIds)->count();      
-            View::share('perbaikanCount', $perbaikanCount);
-        } else {
-            Log::info('CountPerbaikan: Labs or Perbaikans table does not exist.');
-        }
+       // if (Schema::hasTable('lab') ) {
+        //    $labIds = Lab::where('role_id', '5')->pluck('id')->toArray();        
+       //     $perbaikanCount = Perbaikan::where('status', 'menunggu perbaikan')->whereIn('lab_id', $labIds)->count();      
+      //      View::share('perbaikanCount', $perbaikanCount);
+      //  } else {
+      //      Log::info('CountPerbaikan: Labs or Perbaikans table does not exist.');
+      //  }
     }
 }
