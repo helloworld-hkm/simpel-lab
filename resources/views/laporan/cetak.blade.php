@@ -76,6 +76,9 @@
             </tr>
         </tbody>
     </table>
+    <div id="footer">
+        <p>&copy; <?php echo date('Y'); ?> Pemeliharaan dan Perbaikan - Dicetak tanggal @carbonNowShort()</p>
+    </div>
     <h4 class="">Pemeliharaan</h4>
     <table class="table table-bordered">
         <thead>
@@ -146,9 +149,7 @@
         </table>
 
     </div>
-    <div id="footer">
-        <p>&copy; <?php echo date('Y'); ?> Pemeliharaan dan Perbaikan - Dicetak tanggal @carbonNowShort()</p>
-    </div>
+
 </body>
 
 </html>

@@ -58,6 +58,32 @@
             @endif
     </center>
 
+    <table class="table table-bordered">
+        <tbody>
+
+
+            <tr>
+                <th scope="col">Jumlah Pc</th>
+                <td scope="col">{{ $total_pc }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Jumlah Pc Rusak</th>
+                <td scope="col">{{ $total_pc_rusak }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Jumlah Perbaikan Hardware</th>
+                <td scope="col"> {{ $hardware }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Jumlah install software</th>
+                <td scope="col"> {{ $software }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+    <div id="footer">
+        <p>&copy; <?php echo date('Y'); ?> Pemeliharaan dan Perbaikan - Dicetak tanggal @carbonNowShort()</p>
+    </div>
 
     <h4 class="">Pemeliharaan</h4>
     <table class="table table-bordered">

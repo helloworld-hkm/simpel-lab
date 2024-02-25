@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detail_perbaikan_komputer;
 use App\Models\Komputer;
 use App\Models\Lab;
 use App\Models\Pemeliharaan_komputer;
@@ -87,8 +88,10 @@ class LaporanController extends Controller
         $pc=$request->input('input_pc_id');
         $tgl_awal=$request->input('input_tgl_awal');
         $tgl_akhir=$request->input('input_tgl_akhir');
-        $list_sesi = Sesi_Pemeliharaan::where('lab_id', '1')->pluck('id')->toArray();
+        $list_sesi = Sesi_Pemeliharaan::where('lab_id', $lab)->pluck('id')->toArray();
         $pemeliharaan = Pemeliharaan_komputer::with('user')->with('pc')->whereIn('sesi_id', $list_sesi)->where('pc_id', $pc);
+        // dd($pemeliharaan->get());
+        // dd($list_sesi);
         $perbaikan = Perbaikan::with('detail')->where('lab_id', $lab)->where('pc_id',$pc);
         if ($tgl_awal && $tgl_akhir) {
             $pemeliharaan->whereBetween('tanggal', [$tgl_awal, $tgl_akhir]);
@@ -130,10 +133,10 @@ class LaporanController extends Controller
                 $pemeliharaan->where('pc_id', $komputer);
                 $perbaikan->where('pc_id', $komputer);
             }
-            else{
-                // $pemeliharaan->order('pc_id');
-                // $perbaikan->order('lab_id');
-            }
+            // else{
+            //     // $pemeliharaan->order('pc_id');
+            //     // $perbaikan->order('lab_id');
+            // }
         }
         if ($startDate && $endDate) {
             $pemeliharaan->whereBetween('tanggal', [$startDate, $endDate]);
@@ -143,13 +146,22 @@ class LaporanController extends Controller
         $resultPerbaikan = $perbaikan->get();
 
         $resultLab=Lab::find($lab);
+        $totalPC=count(Komputer::where('lab_id',$lab)->get());
+        $totalPcRusak=count(Komputer::where('lab_id',$lab)->where('status','Rusak')->get());
 
+        $perbaikan_id=Perbaikan::where('lab_id',$lab)->pluck('id')->toArray();
+        $hardware=count(detail_perbaikan_komputer::where('jenis_perbaikan','penggantian hardware')->whereIn('perbaikan_id',$perbaikan_id)->get());
+        $software=count(detail_perbaikan_komputer::where('jenis_perbaikan','instal software')->whereIn('perbaikan_id',$perbaikan_id)->get());
         $pdf = Pdf::loadview('laporan.cetak_lab', [
             'pemeliharaan'=>$resultPemeliharaan,
             'perbaikan'=>$resultPerbaikan,
             'tgl_awal'=>$startDate,
             'tgl_akhir'=>$endDate,
-            'lab'=>$resultLab
+            'lab'=>$resultLab,
+            'total_pc'=>$totalPC,
+            'total_pc_rusak'=>$totalPcRusak,
+            'hardware'=>$hardware,
+            'software'=>$software
         ]);
         $pdf->setPaper('A4', 'landscape');
         // // Render the HTML as PDF
